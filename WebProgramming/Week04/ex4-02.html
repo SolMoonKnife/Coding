@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스타일을 가진 웹 페이지</title>
+<style>
+	/* CSS 스타일 시트 작성 */
+	body { background-color : mistyrose; }
+	h3 { color : purple; }
+	hr { border : 5px solid yellowgreen; }
+	span { color : blue; font-size : 20px; } /* span 태그 스타일 선언 (px, pt 둘다 가능함.) */
+	/* 셀렉터 { 프로퍼티 : 값; ... } */
+	/* 셀렉터: CSS3 스타일을 HTML 페이지의 어떤 것에 적용할 지 지정 */
+	/* 프로퍼티: CSS3 스타일 속성. */
+	/* CSS는 대소문자를 구분하지 않는다. */
+
+	/* 
+	* 스타일 적용하는 방법 3가지
+	* 1. <style> ... </style> 태그에 스타일 시트 작성
+	* 2. <p style="property:value"> ... </p> 인라인 스타일. 해당 태그에만 개별적으로 적용된다.
+	* 3. 외부 문서 삽입: 별도의 CSS 파일을 만들어 외부 참조 -> 같은 웹페이지의 스타일을 통일시키기 좋음.
+	* 충돌 발생 시 스코프가 좁을 수록 우선 순위가 높다. (2 > 1 > 3)
+	*/
+
+	/*
+	* <style> ... </style> 태그는 head태그 내부에만 적도록 하고, 여러 개 존재 시 합쳐진다. (그러나 불필요하다)
+	*/
+</style>
+</head>
+<body>
+<h3>CSS 스타일 맛보기</h3>
+<hr>
+<p>나는 <span>웹 프로그래밍</span>을 좋아합니다.</p>
+</body>
+</html>

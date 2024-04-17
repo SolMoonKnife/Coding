@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스타일 합치기 및 오버라이딩</title> <!--서로 다른 속성을 정의하는 것들은 충돌하지 않고 합쳐짐.-->
+<!--오버라이딩은 그냥 충돌 시 우선 순위 개념과 동일함-->
+<link type="text/css" rel="stylesheet" href="external.css">
+<style>
+p { color : blue; font-size : 12px; }
+</style>
+</head>
+<body>
+<h3>p 태그에 스타일 중첩</h3>
+<hr>
+<p>Hello, students!</p>
+<p style="font-size:25px">안녕하세요 교수님!</p>
+<p style="font-size:20px">20px</p>
+<p style="font-size:20pt">20pt</p>
+</body>
+</html>

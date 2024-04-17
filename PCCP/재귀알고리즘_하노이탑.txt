@@ -1,0 +1,18 @@
+재귀 알고리즘은 사람 생각을 코드로 옮기기 편리하지만 반복문 구조에 비해
+시간적으로 비효율적인 경우가 많음
+
+팩토리얼 불러와서 사용하기
+from math import factorial as fact
+fact(n)
+
+def binsearch(L, x, lower, upper):
+    if _____:
+        return -1
+        # 리스트 L에 x가 존재하지 않는 경우(조건은 lower와 upper에 의해 만드세요)
+    mid = (lower + upper)//2
+    if x == L[mid]:
+        return mid
+    elif x < L[mid]:
+        return _____
+    else:
+        return _____

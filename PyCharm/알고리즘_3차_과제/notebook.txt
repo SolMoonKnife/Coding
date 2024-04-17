@@ -1,0 +1,7 @@
+post_ordered = [2, 3, 4, 1, 8, 10, 9, 11, 7, 6]
+
+# BST는 왼쪽 자식이 노드보다 작고, 오른쪽 자식이 노드보다 큰 중복 값이 없는 이진 트리이다.
+
+root = post_ordered.pop()
+while post_ordered:
+

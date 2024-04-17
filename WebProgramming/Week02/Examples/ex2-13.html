@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>내가 좋아하는 음식</title></head>
+<body>
+<h3>내가 좋아하는 음식</h3>
+<hr>
+<ul>
+	<li>감자탕
+	<li>스파게티
+	<li>올레국수
+</ul>
+
+<!--width와 height를 지정하지 않으면 콘텐츠에 따라 크기가 결정됨-->
+<!--tr에는 높이, td에는 너비-->
+<!--셀을 병합하는 방법: -->
+<table border="1">
+	<tr> <!--제목 행-->
+		<th>contents11</th>
+		<th>contents12</th>
+		<th>contents13</th>
+		<th>contsnts14</th>
+	</tr>
+	<tr> <!--2행-->
+		<td>contents21</td>
+		<td>contents22</td>
+		<td>contents23</td>
+		<td>contsnts24</td>
+	</tr>
+	<tr> <!--3행-->
+		<td>contents31</td>
+		<td>contents32</td>
+		<td colspan="2">contents33 and 34</td> <!--2열짜리 행으로 처리(병합)-->
+	</tr>
+</table>
+
+</body>
+</html>

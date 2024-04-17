@@ -1,0 +1,41 @@
+range() 함수 정리
+
+range(stop)  # 0부터 stop직전까지 생성
+range(start, stop)  # start부터 stop직전까지 생성
+range(start, stop, step)  # start부터 stop직전까지 step간격으로 생성 (stop과 step의 순서에 유의하여 익히자)
+-> range(2, -1, -1)  # 2부터 -1직전까지 생성하는데, step이 -1이므로 역순(기본 값은 1)이므로 마지막 값은 0이 됨
+-> 따라서 2, 1, 0 이 생성된다
+
+전치 행렬(transposed matrix) : 대각선 기준으로 뒤집기
+
+zip()  # 두 개 이상의 순서 있는 요소를 튜플로 반환
+
+a, b = [1, 2, 3], [4, 5, 6, 7]
+print(zip(a, b))
+print(list(zip(a, b)))
+
+간단한 전치
+print(list(zip(*matrix)))
+
+input 전치하기
+V, E = input().split()
+
+1. V라는 노드 수에 맞추어 행렬을 생성한다.
+2. E라는 간선의 개수만큼 for문을 통해 인접 행렬에 간선 정보를 저장한다.
+
+리스트 컴프리헨션
+matrix = [[0]*V for _ in range(V)]
+patrix[0][0] = 0
+
+델타 탐색 - 특정 지점에서 인덱스 조작으로 상하좌우 탐색 (행 변화율 dr 또는 dx, 열 변화율 dc 또는 dy)
+상 : 행 - 1   |   좌 : 열 - 1
+하 : 행 + 1   |   우 : 열 + 1
+
+dr = [], dc = []  # [상, 하, 좌, 우] 순으로 변화율을 기록해두면?
+dr = [-1, 1, 0, 0]
+dc = [0, 0, -1, 1]
+
+델타 이동 후 위치가 리스트 범위 내인지 확인하는 과정이 필요함
+
+툭 치면 나오는 튜플 입력법 암기
+V, E = list(map(int, input().split()))
