@@ -1,0 +1,23 @@
+solution_04:
+
+class Tree:
+    init data, left=None, right=None
+
+def build_tree(post_order, in_order):
+    if (post_order) is Empty: return None
+
+    root_value = post_order[last]
+
+    if root_value is not in (in_order): return None
+
+    post_order.pop(last)  // 후위 순회 마지막 원소 제거
+    in_order_index = in_order.index(root_value)
+
+    root = Tree(root_value)
+    root.right = build_tree(post_order, in_order[index+1:])
+    // ㄴ 중위 순회에서 루트를 제외한 우측만 전달
+    root.left = build_tree(post_order, in_order[:index])
+    // ㄴ 중위 순회에서 루트를 제외한 좌측만 전달
+
+    return root
+
