@@ -61,10 +61,26 @@ def solution_04():
                 if not node:
                     return None
                 # 키를 찾은 경우
-                if node.data == key:
+                if node.key.name == key:
                     return node
                 # 오른쪽 또는 왼쪽을 탐색해야 할 경우
-                if node.data < key:
+                if node.key.name < key:
+                    return _search(node.right, key)
+                else:
+                    return _search(node.left, key)
+
+            return _search(self.root, key)
+
+        def trace(self, key):
+            def _search(node, key):
+                print(node.key.name)
+                if not node:
+                    return None
+                # 키를 찾은 경우
+                if node.key.name == key:
+                    return node
+                # 오른쪽 또는 왼쪽을 탐색해야 할 경우
+                if node.key.name < key:
                     return _search(node.right, key)
                 else:
                     return _search(node.left, key)
@@ -84,9 +100,9 @@ def solution_04():
                 if not node:
                     return None
 
-                if key < node.key:          # 노드보다 키가 작으면 왼쪽으로 이동해서 지운다
+                if key < node.key.name:          # 노드보다 키가 작으면 왼쪽으로 이동해서 지운다
                     node.left = _delete(node.left, key)  # ★ 그리고 지운 결과 서브 트리를 왼쪽 노드에 연결한다.
-                elif key > node.key:
+                elif key > node.key.name:
                     node.right = _delete(node.right, key)
                 else:
                     if not node.left:       # 우선 한쪽 자식만 있는 경우를 처리
@@ -97,7 +113,7 @@ def solution_04():
                     # 자식이 둘 있는 경우: 삭제 대상 노드의 키 값을 후계자 노드의 키 값으로 대체하고 후계자 노드를 삭제
                     #
                     node.key = _get_successor(node.right)  # 우측 서브 트리의 최소 키를 후계자 키로 선택 및 대체
-                    node.right = _delete(node.right, node.key)  # 대체한 키 값을 사용하여 우측 서브 트리의 후계자 노드 삭제
+                    node.right = _delete(node.right, node.key.name)  # 대체한 키 값을 사용하여 우측 서브 트리의 후계자 노드 삭제
             
                 return node  # 삭제(후계자 대체) 작업이 완료된 node 반환
 
@@ -115,15 +131,35 @@ def solution_04():
 
             _print_in_order(self.root)
 
-    with open("address_book2020.tsv", "r") as file:
-        people_lines = file.readlines()
-
     people = Binary_search_tree()
-    for line in people_lines[1:]:
-        name, address, company, zipcode, phones, email = tuple(line.split('\t'))
-        people.insert(Person(name, address, company, zipcode, phones, email))
+    def read_file(file_name):
+        with open(file_name, "r") as file:
+            people_lines = file.readlines()
 
-    people.print_in_order()
+        for line in people_lines[1:]:  # 파일의 첫 줄을 제외합니다
+            name, address, company, zipcode, phones, email = map(str.strip, line.split('\t'))  # 분할 및 공백 문자 제거 map
+            people.insert(Person(name, address, company, zipcode, phones, email))  # 언팩된 필드를 바탕으로 객체를 생성해 삽입
+
+    while True:
+        order = tuple(map(str.strip, input().split()))
+        if order[0] == "read":
+            read_file(order[1])
+        elif order[0] == "list":
+            people.print_in_order()
+        elif order[0] == "find":
+            result = people.search(order[1])
+            if result:
+                print(result.key.get_str())
+            else:
+                print("Do not Found")
+        elif order[0] == "delete":
+            people.delete(order[1])
+        elif order[0] == "trace":
+            people.trace(order[1])
+        elif order[0] == "exit":
+            break
+        else:
+            print("wrong order")
 
 
 solution_04()
