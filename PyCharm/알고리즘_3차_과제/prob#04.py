@@ -1,22 +1,12 @@
 def solution_04():
     class Person:
-        def __init__(self, name, address, company, zipcode, phones, email):
+        def __init__(self, name, company, address, zipcode, phones, email):
             self.name = name
             self.address = address
             self.company = company
             self.zipcode = zipcode
             self.phones = phones
             self.email = email
-
-        def get_full_info(self):  # 현재 필요 없음
-            return (
-                self.name,
-                self.address,
-                self.company,
-                self.zipcode,
-                self.phones,
-                self.email
-            )
 
         def get_str(self):
             return (f"{self.name}\n"
@@ -82,7 +72,7 @@ def solution_04():
                     node = node.left  # 다음 왼쪽 노드로 이동
 
                 return min_key
-                
+
             def _delete(node, key):
                 if not node:
                     return None
@@ -101,7 +91,7 @@ def solution_04():
                     #
                     node.key = _get_successor(node.right)  # 우측 서브 트리의 최소 키를 후계자 키로 선택 및 대체
                     node.right = _delete(node.right, node.key.name)  # 대체한 키 값을 사용하여 우측 서브 트리의 후계자 노드 삭제
-            
+
                 return node  # 삭제(후계자 대체) 작업이 완료된 node 반환
 
             self.root = _delete(self.root, key)
@@ -118,6 +108,27 @@ def solution_04():
 
             _print_in_order(self.root)
 
+        def output_in_order(self, file):
+            file.write("name\tcompany_name\taddress\tzip\tphone\temail\n")
+            def _output_in_order(root):
+                if root:
+                    _output_in_order(root.left)
+                    line = (f"{root.key.name}\t"
+                            f"{root.key.company}\t"
+                            f"{root.key.address}\t"
+                            f"{root.key.zipcode}\t"
+                            f"{root.key.phones}\t"
+                            f"{root.key.email}\n")
+                    file.write(line)
+                    _output_in_order(root.right)
+
+            _output_in_order(self.root)
+
+    PARAMETER_ERROR = "Warning: Insufficient parameters"
+    ORDER_ERROR = "Warning: Wrong order"
+    FIND_ERROR = "Do not found"
+    EMPTY_ERROR = "List is empty"
+
     people = Binary_search_tree()
     def read_file(file_name):
         with open(file_name, "r") as file:
@@ -130,27 +141,53 @@ def solution_04():
     while True:
         order = tuple(map(str.strip, input().split()))
         if order[0] == "read":
-            read_file(order[1])
-        elif order[0] == "list":
-            people.print_in_order()
-        elif order[0] == "find":
-            result = people.search(order[1])
-            if result:
-                print(result.key.get_str())
+            if len(order) == 2:
+                read_file(order[1])
             else:
-                print("Do not Found")
+                print(PARAMETER_ERROR)
+
+        elif order[0] == "list":
+            if people.root:
+                people.print_in_order()
+            else:
+                print(EMPTY_ERROR)
+
+        elif order[0] == "find":
+            if len(order) == 2:
+                result = people.search(order[1])
+                if result:
+                    print(result.key.get_str())
+                else:
+                    print(FIND_ERROR)
+            else:
+                print(PARAMETER_ERROR)
+
         elif order[0] == "delete":
             people.delete(order[1])
+
         elif order[0] == "trace":
-            result = people.search(order[1], trace=True)
-            if result:
-                print(result.key.get_str())
+            if len(order) == 2:
+                result = people.search(order[1], trace=True)
+                if result:
+                    print(result.key.get_str())
+                else:
+                    print(FIND_ERROR)
             else:
-                print("Do not Found")
+                print(PARAMETER_ERROR)
+
+        elif order[0] == "save":
+            if len(order) == 2:
+                with open(f"{order[1]}", "w") as file:
+                    people.output_in_order(file)
+                print(order[1], "saved")
+            else:
+                print(PARAMETER_ERROR)
+
         elif order[0] == "exit":
             break
+
         else:
-            print("wrong order")
+            print(ORDER_ERROR)
 
 
 solution_04()
