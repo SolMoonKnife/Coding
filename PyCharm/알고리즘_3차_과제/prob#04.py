@@ -2,8 +2,8 @@ def solution_04():
     class Person:
         def __init__(self, name, company, address, zipcode, phones, email):
             self.name = name
-            self.address = address
             self.company = company
+            self.address = address
             self.zipcode = zipcode
             self.phones = phones
             self.email = email
@@ -128,6 +128,7 @@ def solution_04():
     ORDER_ERROR = "Warning: Wrong order"
     FIND_ERROR = "Do not found"
     EMPTY_ERROR = "List is empty"
+    DUPLICATE_ERROR = "The name already exist"
 
     people = Binary_search_tree()
     def read_file(file_name):
@@ -163,7 +164,14 @@ def solution_04():
                 print(PARAMETER_ERROR)
 
         elif order[0] == "delete":
-            people.delete(order[1])
+            if len(order) == 2:
+                if people.search(order[1]):
+                    people.delete(order[1])
+                    print(order[1], "deleted")
+                else:
+                    print(FIND_ERROR)
+            else:
+                print(PARAMETER_ERROR)
 
         elif order[0] == "trace":
             if len(order) == 2:
@@ -172,6 +180,23 @@ def solution_04():
                     print(result.key.get_str())
                 else:
                     print(FIND_ERROR)
+            else:
+                print(PARAMETER_ERROR)
+
+        elif order[0] == "add":
+            if len(order) == 2:
+                if people.search(order[1]):
+                    print(DUPLICATE_ERROR)
+                else:
+                    name = order[1]
+                    company = input("Company? ")
+                    address = input("Address? ")
+                    zipcode = input("Zipcode? ")
+                    phones = input("Phones? ")
+                    email = input("Email? ")
+
+                    people.insert(Person(name, company, address, zipcode, phones, email))
+                    print(name, "saved")
             else:
                 print(PARAMETER_ERROR)
 
@@ -188,6 +213,5 @@ def solution_04():
 
         else:
             print(ORDER_ERROR)
-
 
 solution_04()
