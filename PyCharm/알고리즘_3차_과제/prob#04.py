@@ -16,7 +16,7 @@ def solution_04():
                     f"  Phones: {self.phones}\n"
                     f"  Email: {self.email}" )
 
-        # 이진 탐색 트리의 key가 Person 객체이므로 key를 참조할 때 name을 확인할 수 있어야 한다
+        # 이진 탐색 트리의 key가 Person 객체이므로 key를 참조할 때 name을 비교할 수 있어야 한다
         def __lt__(self, other):
             return self.name < other.name
         def __eq__(self, other):
@@ -124,6 +124,7 @@ def solution_04():
 
             _output_in_order(self.root)
 
+    ### 에러 메시지 선언 ###
     PARAMETER_ERROR = "Warning: Insufficient parameters"
     ORDER_ERROR = "Warning: Wrong order"
     FIND_ERROR = "Do not found"
@@ -140,19 +141,24 @@ def solution_04():
             people.insert(Person(name, address, company, zipcode, phones, email))  # 언팩된 필드를 바탕으로 객체를 생성해 삽입
 
     while True:
+        ### 명령어 입력 ###
         order = tuple(map(str.strip, input().split()))
+
+        ### 읽기 파일_이름 ###
         if order[0] == "read":
             if len(order) == 2:
                 read_file(order[1])
             else:
                 print(PARAMETER_ERROR)
 
+        ### 리스트 ###
         elif order[0] == "list":
             if people.root:
                 people.print_in_order()
             else:
                 print(EMPTY_ERROR)
 
+        ### 찾기 이름 ###
         elif order[0] == "find":
             if len(order) == 2:
                 result = people.search(order[1])
@@ -163,16 +169,7 @@ def solution_04():
             else:
                 print(PARAMETER_ERROR)
 
-        elif order[0] == "delete":
-            if len(order) == 2:
-                if people.search(order[1]):
-                    people.delete(order[1])
-                    print(order[1], "deleted")
-                else:
-                    print(FIND_ERROR)
-            else:
-                print(PARAMETER_ERROR)
-
+        ### 추적 이름 ###
         elif order[0] == "trace":
             if len(order) == 2:
                 result = people.search(order[1], trace=True)
@@ -183,6 +180,18 @@ def solution_04():
             else:
                 print(PARAMETER_ERROR)
 
+        ### 삭제 이름 ###
+        elif order[0] == "delete":
+            if len(order) == 2:
+                if people.search(order[1]):
+                    people.delete(order[1])
+                    print(order[1], "was successfully deleted")
+                else:
+                    print(FIND_ERROR)
+            else:
+                print(PARAMETER_ERROR)
+
+        ### 추가 이름 ###
         elif order[0] == "add":
             if len(order) == 2:
                 if people.search(order[1]):
@@ -196,21 +205,24 @@ def solution_04():
                     email = input("Email? ")
 
                     people.insert(Person(name, company, address, zipcode, phones, email))
-                    print(name, "saved")
+                    print(name, "was successfully added")
             else:
                 print(PARAMETER_ERROR)
 
+        ### 저장 파일_이름 ###
         elif order[0] == "save":
             if len(order) == 2:
                 with open(f"{order[1]}", "w") as file:
                     people.output_in_order(file)
-                print(order[1], "saved")
+                print(order[1], "was successfully saved")
             else:
                 print(PARAMETER_ERROR)
 
+        ### 종료 ###
         elif order[0] == "exit":
             break
 
+        ### 잘못된 명령어 ###
         else:
             print(ORDER_ERROR)
 
