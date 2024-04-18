@@ -56,8 +56,10 @@ def solution_04():
 
             return self.root is not None  # 삽입 성공 여부
 
-        def search(self, key):
-            def _search(node, key):
+        def search(self, key, trace=False):
+            def _search(node, key, trace):
+                if trace:
+                    print(node.key.name)
                 if not node:
                     return None
                 # 키를 찾은 경우
@@ -65,27 +67,12 @@ def solution_04():
                     return node
                 # 오른쪽 또는 왼쪽을 탐색해야 할 경우
                 if node.key.name < key:
-                    return _search(node.right, key)
+                    return _search(node.right, key, trace)
                 else:
-                    return _search(node.left, key)
+                    return _search(node.left, key, trace)
 
-            return _search(self.root, key)
-
-        def trace(self, key):
-            def _search(node, key):
-                print(node.key.name)
-                if not node:
-                    return None
-                # 키를 찾은 경우
-                if node.key.name == key:
-                    return node
-                # 오른쪽 또는 왼쪽을 탐색해야 할 경우
-                if node.key.name < key:
-                    return _search(node.right, key)
-                else:
-                    return _search(node.left, key)
-
-            return _search(self.root, key)
+            return _search(self.root, key, trace)
+        # search 함수에 매개 변수를 추가하여 trace 기능을 통합함.
 
         def delete(self, key):
             def _get_successor(node):
@@ -155,7 +142,11 @@ def solution_04():
         elif order[0] == "delete":
             people.delete(order[1])
         elif order[0] == "trace":
-            people.trace(order[1])
+            result = people.search(order[1], trace=True)
+            if result:
+                print(result.key.get_str())
+            else:
+                print("Do not Found")
         elif order[0] == "exit":
             break
         else:
