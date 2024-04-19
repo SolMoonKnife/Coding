@@ -11,44 +11,26 @@ def gacha(n, pickupRate=0.5, type="C"):
     mustup = 0
     win = [0, 0]
     pickdown, pickup = 0, 0
-    if type == "C":
-        while n > 0:
-            stack += 1
-            key = np.random.rand()
-            if rate(stack) >= key:
-                if mustup == 1:
-                    mustup = 0
+
+    while n > 0:
+        stack += 1
+        key = np.random.rand()
+        in_rate = rate(stack) if type == "C" else (rate_core(stack) if type == "L" else 0.0)
+        if in_rate >= key:
+            if mustup == 1:
+                mustup = 0
+                pickup += 1
+            else:
+                picksel = np.random.rand()
+                if pickupRate >= picksel:
                     pickup += 1
+                    win[0] += 1
                 else:
-                    picksel = np.random.rand()
-                    if pickupRate >= picksel:
-                        pickup += 1
-                        win[0] += 1
-                    else:
-                        mustup = 1
-                        pickdown += 1
-                        win[1] += 1
-                stack = 0
-            n -= 1
-    elif type == "L":
-        while n > 0:
-            stack += 1
-            key = np.random.rand()
-            if rate_core(stack) >= key:
-                if mustup == 1:
-                    mustup = 0
-                    pickup += 1
-                else:
-                    picksel = np.random.rand()
-                    if pickupRate >= picksel:
-                        pickup += 1
-                        win[0] += 1
-                    else:
-                        mustup = 1
-                        pickdown += 1
-                        win[1] += 1
-                stack = 0
-            n -= 1
+                    mustup = 1
+                    pickdown += 1
+                    win[1] += 1
+            stack = 0
+        n -= 1
 
     return pickup, pickdown, win
 
