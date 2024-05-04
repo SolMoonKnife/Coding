@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Math.random()으로 랜덤한 색 만들기</title>
+<style>
+div {
+	display : inline-block;
+	width : 150px;
+	padding : 10px;
+}
+</style>
+</head>
+<body>
+<h3>16개의 랜덤한 색 만들기</h3>
+<hr>
+<script>
+function newColor() { // 랜덤하게 색깔을 만들어내는 함수
+	let r = Math.floor(Math.random()*256);
+	let g = Math.floor(Math.random()*256);
+	let b = Math.floor(Math.random()*256);
+	return "rgb(" + r + "," + g + "," + b + ")";
+}
+// 16개의 레이어를 만들고 배경색을 랜덤하고 정하고 화면에 표시하기
+for (let i=0; i<4; i++){
+	for (let j=0; j<4; j++){
+		let color = newColor();
+		document.write("<div style='background-color:" + color + "'>" + color + "</div>");
+	}
+	document.write("<br>");
+}
+// 16개의 레이어를 만들고 배경색을 랜덤하고 정하고 화면에 표시하기
+</script>
+</body>
+
+</html>

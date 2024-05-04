@@ -17,9 +17,23 @@
 
 <script>
   function cal_grade(){
-	// Æû ¾È¿¡ ÀÖ´Â °³Ã¼ ¼Ó¼ºÀ» º¯°æÇÏ´Â ¹æ¹ı
-	// inputform.total.value = 100; À» ½ÇÇàÇÏ¸é ÃÑÁ¡ ÅØ½ºÆ® »óÀÚÀÇ °ªÀÌ 100À¸·Î ¹Ù²ò´Ï´Ù. 
-	
+	// í¼ ì•ˆì— ìˆëŠ” ê°œì²´ ì†ì„±ì„ ë³€ê²½í•˜ëŠ” ë°©ë²•
+	// inputform.total.value = 100; ì„ ì‹¤í–‰í•˜ë©´ ì´ì  í…ìŠ¤íŠ¸ ìƒìì˜ ê°’ì´ 100ìœ¼ë¡œ ë°”ë€ë‹ˆë‹¤. 
+	let total_score;
+	let grade;
+	total_score = 	0.1 * inputform.att.value + 
+					0.1 * inputform.rep.value + 
+					0.4 * inputform.mid.value +
+					0.4 * inputform.fin.value;
+
+	if (total_score >= 90) 		grade = "A";
+	else if (total_score >= 80) grade = "B";
+	else if (total_score >= 70) grade = "C";
+	else if (total_score >= 60) grade = "D";
+	else 						grade = "F";
+
+	inputform.total.value = total_score;
+	inputform.grade.value = grade;
   }
 </script>
 
@@ -27,10 +41,10 @@
 <body oncontextmenu="return false">
 <center>
 <table width=900 cellspacing=0>
-<caption style="font-family:°íµñ; font-size:14pt;"><b>À¥ÇÁ·Î±×·¡¹Ö ¼ºÀû</b></caption>
+<caption style="font-family:ê³ ë”•; font-size:14pt;"><b>ì›¹í”„ë¡œê·¸ë˜ë° ì„±ì </b></caption>
 <tr bgcolor="#ddcc44">
-<td align=center width=120>ÇĞ¹ø</td><td align=center width=120>ÀÌ¸§</td><td align=center width=120>Ãâ ¼®</td><td align=center width=120>·¹Æ÷Æ®</td>
-<td align=center width=120>Áß°£°í»ç</td><td align=center width=120>±â¸»°í»ç</td><td align=center width=90>ÃÑ Á¡</td><td align=center width=90>ÇĞ Á¡</td>
+<td align=center width=120>í•™ë²ˆ</td><td align=center width=120>ì´ë¦„</td><td align=center width=120>ì¶œ ì„</td><td align=center width=120>ë ˆí¬íŠ¸</td>
+<td align=center width=120>ì¤‘ê°„ê³ ì‚¬</td><td align=center width=120>ê¸°ë§ê³ ì‚¬</td><td align=center width=90>ì´ ì </td><td align=center width=90>í•™ ì </td>
 </tr>
 <form name=inputform>
 <script language="javascript">
@@ -47,7 +61,7 @@
 	  document.write("</tr>")
 	
 </script>
-<tr><td colspan=8><input type="button" value="ÇĞÁ¡°è»ê" onclick="cal_grade()">&nbsp;<input type="reset" value="Ãë¼Ò"></td></tr>
+<tr><td colspan=8><input type="button" value="í•™ì ê³„ì‚°" onclick="cal_grade()">&nbsp;<input type="reset" value="ì·¨ì†Œ"></td></tr>
 </form>
 </table>
 </center>

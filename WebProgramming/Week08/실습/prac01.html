@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>prompt 기본문제 01</title>
+</head>
+<body>
+<h3>평일과 휴일 구분</h3>
+<hr>
+<script>
+	let nowWeek = prompt("요일을 입력하세요.", "일");
+    switch(nowWeek){
+        case "월":
+        case "화":
+        case "수":
+        case "목":
+            document.write("출근<br>");
+            break;
+        case "금":
+        case "토":
+        case "일":
+            document.write("휴일<br>");
+            break;
+        default:
+            document.write("입력 오류<br>");
+    }
+</script>
+</body>
+</html>
